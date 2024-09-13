@@ -21,4 +21,6 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/profile', [ProfileController::class, 'profile']);
 
+use App\Http\Controllers\UserController;
 
+Route::get('/user/create', [UserController::class, 'create']);
