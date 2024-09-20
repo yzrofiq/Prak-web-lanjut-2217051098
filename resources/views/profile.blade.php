@@ -82,12 +82,12 @@
 <body>
     <div class="profile-container">
         <div class="profile-image">
-            <img src="Gambar/honkai-star-wallpaper-chibi.jpg" alt="Profile Picture">
+            <img src="{{$foto}}" alt="Profile Picture">
         </div>
         <div class="profile-info">
-            <div class="profile-field">Muhamad Rofiq</div>
-            <div class="profile-field">Kelas A</div>
-            <div class="profile-field">NPM 2217051098</div>
+            <div class="profile-field">{{$nama}}</div>
+            <div class="profile-field">{{$kelas}}</div>
+            <div class="profile-field">{{$npm}}</div>
         </div>
     </div>
 </body>
