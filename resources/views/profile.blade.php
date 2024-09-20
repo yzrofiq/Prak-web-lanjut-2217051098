@@ -82,7 +82,7 @@
 <body>
     <div class="profile-container">
         <div class="profile-image">
-            <img src="{{$foto}}" alt="Profile Picture">
+            <img src="{{$foto  v}}" alt="Profile Picture">
         </div>
         <div class="profile-info">
             <div class="profile-field">{{$nama}}</div>

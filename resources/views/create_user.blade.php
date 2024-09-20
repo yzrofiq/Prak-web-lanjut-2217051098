@@ -16,7 +16,6 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-image: url('https://via.placeholder.com/1600x900'); /* Background image */
         background-size: cover;
         background-position: center;
         font-family: Arial, sans-serif;
@@ -111,7 +110,7 @@
 
     .profile-image img:hover {
         transform: scale(1.1);
-        border-color: #007bff;
+        border-color: #0007bff;
         filter: grayscale(0);
     }
 
