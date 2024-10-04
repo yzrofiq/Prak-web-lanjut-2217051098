@@ -1,218 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-    <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+@extends('layouts.app')
 
+@section('content')
+<div class="min-vh-100 d-flex justify-content-center align-items-center" style="background-image: url('{{ asset('assets/img/jj.jpg') }}'); background-size: cover; background-position: center;">
+    <div class="card p-4 shadow-lg w-100" style="max-width: 500px; background-color: rgba(255, 255, 255, 0.9); border-radius: 15px;">
+        <div class="text-center mb-4">
+            <!-- Foto Profil -->
+            <div class="profile-pic-container">
+                <img src="{{ asset('assets/img/W.(Arknights).full.2982424.jpg') }}" alt="Profile" class="profile-pic">
+            </div>
+        </div>
+
+<h1 class="text-center mb-4" style="color: red;">Form Data Mahasiswa</h1>
+
+<form action="{{ route('user.store') }}" method="POST">
+    @csrf
+
+    <!-- Input Nama -->
+    <div class="mb-3 input-with-icon">
+        <label for="nama" class="form-label">Nama:</label>
+        <i class="fa fa-user icon"></i>
+        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" value="{{ old('nama') }}">
+        @error('nama')
+            <div class="text-danger mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <!-- Input NPM -->
+    <div class="mb-3 input-with-icon">
+        <label for="npm" class="form-label">NPM:</label>
+        <i class="fa fa-id-card icon"></i>
+        <input type="text" name="npm" id="npm" class="form-control" placeholder="Masukkan NPM Anda" value="{{ old('npm') }}">
+        @error('npm')
+            <div class="text-danger mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <!-- Input Kelas -->
+    <div class="mb-3 input-with-icon">
+        <label for="kelas_id" class="form-label">Kelas:</label>
+        <i class="fa fa-graduation-cap icon"></i>
+        <select name="kelas_id" id="kelas_id" class="form-select" required>
+            <option value="">Pilih Kelas</option>
+            @foreach ($kelas as $kelasItem)
+                <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
+                    {{ $kelasItem->nama_kelas }}
+                </option>
+            @endforeach
+        </select>
+        @error('kelas_id')
+            <div class="text-danger mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <!-- Tombol Submit -->
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-hover">Simpan Data</button>
+    </div>
+</form>
+</div>
+</div>
+<!-- CSS -->
+<style>
     body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        font-family: 'Arial', sans-serif;
+    }
+    .min-vh-100 {
         background-size: cover;
         background-position: center;
-        font-family: Arial, sans-serif;
-        overflow: hidden;
+        background-repeat: no-repeat;
     }
 
-    .container {
-        position: relative;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.85); /* Transparent form background */
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        width: 600px;
-        max-width: 100%;
-        z-index: 1;
-        transition: transform 0.5s ease, opacity 0.5s ease;
-    }
-
-    .form-group {
-        margin: 15px 0;
-        text-align: left;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        transition: border-color 0.3s ease;
-    }
-
-    .form-group input:focus {
-        border-color: #007bff;
-        outline: none;
-    }
-
-    .form-group button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-    }
-
-    .form-group button:hover {
-        background-color: #0056b3;
-    }
-
-    .profile-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.95); /* Transparent profile background */
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        width: 500px;
-        height: auto;
-        opacity: 0;
-        transition: transform 0.5s ease, opacity 0.5s ease;
-        z-index: 2;
-    }
-
-    .profile-container.active {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-
-    .profile-image img {
+    /* Profil & animasi */
+    .profile-pic-container {
+        display: inline-block;
         border-radius: 50%;
-        border: 2px solid #ccc;
-        padding: 10px;
-        width: 160px;
-        height: 160px;
+        overflow: hidden;
+        border: 1px solid #f1c40f;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
         filter: grayscale(100%);
-        transition: transform 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+        transition: filter 0.5s ease, transform 0.3s ease;
     }
 
-    .profile-image img:hover {
-        transform: scale(1.1);
-        border-color: #0007bff;
+    .profile-pic-container:hover .profile-pic {
         filter: grayscale(0);
+        transform: scale(1.05);
     }
 
-    .profile-info {
-        margin-top: 20px;
+    .input-with-icon {
+        position: relative;
+        margin-bottom: 1rem;
     }
 
-    .profile-field {
-        background-color: #e0e0e0;
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 5px;
+    .input-with-icon .icon {
+        position: absolute;
+        left: 10px;
+        top: 35px;
         font-size: 18px;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        color: red;
     }
 
-    .profile-field:hover {
-        background-color: #87CEFA;
-        color: #fff;
-    }
-
-    .close-btn {
-        background-color: #ff5c5c;
-        color: white;
-        border: none;
-        padding: 10px 20px;
+    .input-with-icon input, .input-with-icon select {
+        padding-left: 40px;
         border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: background-color 0.3s ease;
+        border: 1px solid #f1c40f;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .close-btn:hover {
-        background-color: #e60000;
+    .input-with-icon input:focus, .input-with-icon select:focus {
+        border-color: #f39c12;
+        box-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
     }
 
-    </style>
-</head>
-<body>
-    <div class="container" id="form-container">
-        <div class="profile-image">
-           <img src="https://64.media.tumblr.com/9156a39fee5687ee2e1195865ca4617a/4caafae280536c78-84/s500x750/a2f0d57ac08dc617661c8ff467262e1ac423ecba.png" alt="Profile Picture"> <!-- Gambar profil -->
-        </div>
-        <form id="user-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="class">Class</label>
-                <input type="text" id="class" name="class" required>
-            </div>
-            <div class="form-group">
-                <label for="npm">NPM</label>
-                <input type="text" id="npm" name="npm" required>
-            </div>
-            <div class="form-group">
-                <button type="button" onclick="updateProfile()">Submit</button>
-            </div>
-        </form>
-    </div>
-
-    <div class="profile-container" id="profile-container">
-        <div class="profile-image">
-            <img src="https://64.media.tumblr.com/9156a39fee5687ee2e1195865ca4617a/4caafae280536c78-84/s500x750/a2f0d57ac08dc617661c8ff467262e1ac423ecba.png" alt="Profile Picture"> <!-- Gambar profil -->
-        </div>
-        <div class="profile-info">
-            <div class="profile-field" id="profile-name"></div>
-            <div class="profile-field" id="profile-class"></div>
-            <div class="profile-field" id="profile-npm"></div>
-        </div>
-        <button class="close-btn" onclick="closeProfile()">Close</button>
-    </div>
-
-    <script>
-    function updateProfile() {
-        const name = document.getElementById('name').value;
-        const className = document.getElementById('class').value;
-        const npm = document.getElementById('npm').value;
-
-        document.getElementById('profile-name').textContent = "Name: " + name;
-        document.getElementById('profile-class').textContent = "Class: " + className;
-        document.getElementById('profile-npm').textContent = "NPM: " + npm;
-
-        const formContainer = document.getElementById('form-container');
-        const profileContainer = document.getElementById('profile-container');
-
-        formContainer.style.transform = 'scale(0.9)';
-        formContainer.style.opacity = '0.5';
-
-        profileContainer.classList.add('active');
+    .btn-primary {
+        background-color: red;
+        border-color: red;
+        transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    function closeProfile() {
-        const formContainer = document.getElementById('form-container');
-        const profileContainer = document.getElementById('profile-container');
-
-        profileContainer.classList.remove('active');
-        formContainer.style.transform = 'scale(1)';
-        formContainer.style.opacity = '1';
+    .btn-primary:hover {
+        background-color: #f39c12;
+        border-color: #f39c12;
+        transform: scale(1.05);
     }
-    </script>
-</body>
-</html>
+</style>
+@endsection

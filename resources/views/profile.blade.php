@@ -3,92 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profil User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-        font-family: Arial, sans-serif;
-    }
-
-    .profile-container {
-        text-align: center;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        width: 400px;
-        height: 500px;
-        transition: transform 0.3s ease;
-    }
-
-    .profile-image img {
-    border-radius: 50%; /* Mengubah sudut gambar menjadi lingkaran */
-    border: 2px solid #ccc;
-    padding: 10px;
-    width: 200px; /* Ukuran lebar gambar */
-    height: 200px; /* Ukuran tinggi gambar */
-    filter: grayscale(100%); /* Membuat gambar hitam putih */
-    transition: transform 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
-}
-
-
-
-    /* Efek hover pada gambar profil: Berubah menjadi berwarna */
-    .profile-image img:hover {
-        transform: scale(1.1); /* Membesarkan gambar */
-        border-color: #0007bff; /* Mengubah warna border saat di-hover */
-        filter: grayscale(0); /* Menghilangkan efek hitam putih (kembali berwarna) */
-    }
-
-    /* Informasi profil */
-    .profile-info {
-        margin-top: 20px;
-    }
-
-    .profile-field {
-        background-color: #e0e0e0;
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 5px;
-        font-size: 18px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    /* Efek hover pada box profile */
-    .profile-container:hover {
-        transform: scale(1.05); /* Membesarkan seluruh kotak saat di-hover */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Efek bayangan lebih besar saat di-hover */
-    }
-
-    /* Efek hover pada field */
-    .profile-field:hover {
-        background-color: #87CEFA;
-        color: #fff; /* Mengubah warna teks menjadi putih saat di-hover */
-    }
-</style>
-
-
+        body {
+            background-image: radial-gradient(circle, #2563eb, #1e3a8a);
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
-<body>
-    <div class="profile-container">
-        <div class="profile-image">
-            <img src="{{$foto  v}}" alt="Profile Picture">
+<body class="min-h-screen flex items-center justify-center">
+
+    <div class="bg-white bg-opacity-95 p-10 rounded-lg shadow-lg w-full max-w-lg transform hover:scale-105 transition duration-500 ease-in-out">
+        <h1 class="text-3xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-700">
+            Profil Mahasiswa
+        </h1>
+
+        <div class="mb-6">
+            <label class="block text-blue-600 text-sm font-semibold mb-2">Nama:</label>
+            <p class="text-lg text-gray-800 bg-blue-50 p-3 rounded-lg shadow-md">{{ $nama }}</p>
         </div>
-        <div class="profile-info">
-            <div class="profile-field">{{$nama}}</div>
-            <div class="profile-field">{{$kelas}}</div>
-            <div class="profile-field">{{$npm}}</div>
+
+        <div class="mb-6">
+            <label class="block text-blue-600 text-sm font-semibold mb-2">NPM:</label>
+            <p class="text-lg text-gray-800 bg-blue-50 p-3 rounded-lg shadow-md">{{ $npm }}</p>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-blue-600 text-sm font-semibold mb-2">Kelas:</label>
+            <p class="text-lg text-gray-800 bg-blue-50 p-3 rounded-lg shadow-md">{{ $nama_kelas ?? 'Kelas tidak ditemukan' }}</p>
         </div>
     </div>
+
 </body>
 </html>
