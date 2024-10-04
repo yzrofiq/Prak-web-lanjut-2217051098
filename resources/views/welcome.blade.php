@@ -38,7 +38,7 @@
                     </svg>
                 </div>
 
-                <h2 style="color: white; font-size: 24px; text-align: center;">Nurwahid Muslim</h2>
+                <h2 style="color: white; font-size: 24px; text-align: center;">Muhamad Rofiq</h2>
 
                 <div class="mt-16">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
