@@ -20,7 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/profile/{nama}/{kelas}/{npm}', [ProfileController::class, 'profile']);
-Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+Route::get('/user/profile', [UserController::class, 'profile']);
 Route::get('/user/create', [UserController::class, 'create']);
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/show/{id}', [UserController::class, 'show'])->name('users.show');
