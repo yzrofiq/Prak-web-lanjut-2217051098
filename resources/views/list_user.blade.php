@@ -11,6 +11,7 @@
                 <th>Nama</th>
                 <th>NPM</th>
                 <th>Kelas</th>
+                <th>Foto</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -21,6 +22,8 @@
                     <td>{{ $user->nama }}</td>
                     <td>{{ $user->npm }}</td>
                     <td>{{ $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan' }}</td>
+                    <td><img src="{{ asset($user->foto ?? 'assets/img/default.png') }}" 
+                     alt="Foto Profil" class="profile-pic" width="100px"></td>
                     <td>
                         <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning mb-3" style="background-color: #004D98; border-color: #004D98; color: white; width: 100px;">View</a>
                         <a href="{{ route('user.edit', $user['id']) }}" class="btn btn-warning mb-3" style="background-color: #A50044; border-color: #A50044; color: white; width: 100px;">Edit</a>

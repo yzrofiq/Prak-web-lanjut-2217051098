@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->string('foto')->nullable(); // Menambahkan kolom 'foto' yang bersifat opsional
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('foto')->nullable(); // Menambahkan kolom 'foto' pada tabel 'users' dan bersifat opsional
         });
     }
 
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('foto'); // Menghapus kolom 'foto' jika rollback
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('foto'); // Menghapus kolom 'foto' jika migrasi di-rollback
         });
     }
 };

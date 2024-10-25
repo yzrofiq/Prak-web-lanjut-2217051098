@@ -113,49 +113,53 @@
                 transform: scale(1.05);
             }
         </style>
+<form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
 
-        <!-- Profile Picture -->
-        <div class="profile-pic-container">
-            <img src="{{ asset('assets/img/W.(Arknights).full.2982424.jpg') }}" alt="Profile Picture" class="profile-pic">
-        </div>
+    <!-- Nama Field -->
+    <input type="text" name="nama" id="nama" class="input-field" placeholder="Masukkan Nama Anda" value="{{ old('nama') }}">
+    @error('nama')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 
-        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+    <!-- NPM Field -->
+    <input type="text" name="npm" id="npm" class="input-field" placeholder="Masukkan NPM Anda" value="{{ old('npm') }}">
+    @error('npm')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 
-            <!-- Nama Field -->
-            <input type="text" name="nama" id="nama" class="input-field" placeholder="Masukkan Nama Anda" value="{{ old('nama') }}">
-            @error('nama')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+    <!-- Kelas Field -->
+    <select name="kelas_id" id="kelas_id" class="input-field" required>
+        <option value="">Pilih Kelas</option>
+        @foreach ($kelas as $kelasItem)
+            <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
+                {{ $kelasItem->nama_kelas }}
+            </option>
+        @endforeach
+    </select>
+    @error('kelas_id')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 
-            <!-- NPM Field -->
-            <input type="text" name="npm" id="npm" class="input-field" placeholder="Masukkan NPM Anda" value="{{ old('npm') }}">
-            @error('npm')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+    <!-- Jurusan Field -->
+    <select name="jurusan_id" id="jurusan_id" class="input-field" required>
+        <option value="">Pilih Jurusan</option>
+        @foreach ($jurusan as $jurusanItem)
+            <option value="{{ $jurusanItem->id }}" {{ old('jurusan_id') == $jurusanItem->id ? 'selected' : '' }}>
+                {{ $jurusanItem->nama_jurusan }}
+            </option>
+        @endforeach
+    </select>
+    @error('jurusan_id')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
 
-            <!-- Kelas Field -->
-            <select name="kelas_id" id="kelas_id" class="input-field" required>
-                <option value="">Pilih Kelas</option>
-                @foreach ($kelas as $kelasItem)
-                    <option value="{{ $kelasItem->id }}" {{ old('kelas_id') == $kelasItem->id ? 'selected' : '' }}>
-                        {{ $kelasItem->nama_kelas }}
-                    </option>
-                @endforeach
-            </select>
-            @error('kelas_id')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+    <!-- Foto Field -->
+    <input type="file" id="foto" name="foto" class="input-field">
 
-            <!-- Foto Field -->
-            <input type="file" id="foto" name="foto" class="input-field">
-
-            <!-- Button Group -->
-            <div class="btn-group">
-                <a href="{{ route('user.index') }}" class="btn-secondary">USER</a>
-                <button type="submit" class="btn-submit">Tambah Data</button>
-            </div>
-        </form>
+    <!-- Button Group -->
+    <div class="btn-group">
+        <a href="{{ route('user.index') }}" class="btn-secondary">USER</a>
+        <button type="submit" class="btn-submit">Tambah Data</button>
     </div>
-</div>
-@endsection
+</form>
